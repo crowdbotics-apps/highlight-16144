@@ -1,68 +1,44 @@
-import React from 'react';
-import {mapping, dark} from '@eva-design/eva';
-import {ApplicationProvider, Layout, Text, IconRegistry} from 'react-native-ui-kitten';
-import {Provider as ReduxProvider} from 'react-redux';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow strict-local
+ */
 
-import SplashScreen from './src/features/SplashScreen';
-import {store} from './src/redux/store';
-import NavigatorProvider from './src/navigator/mainNavigator';
-import {setupHttpConfig} from './src/utils/http';
-import {crowdboticsTheme} from './src/config/crowdboticsTheme';
-import * as NavigationService from './src/navigator/NavigationService';
-import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import React, { Component } from 'react';
 
-export default class App extends React.Component {
-  state = {
-    isLoaded: false,
-  };
+import { NativeRouter } from 'react-router-native';
 
-  async componentWillMount() {
-    /**
-     * add any aditional app config here,
-     * don't use blocking requests here like HTTP requests since they block UI feedback
-     * create HTTP requests and other blocking requests using redux saga
-     */
-    await this.loadAssets();
-    setupHttpConfig();
-  }
 
-  componentDidMount() {
-    /**
-     * Read above commments above adding async requests here
-     */
-    NavigationService.setNavigator(this.navigator);
-  }
+import Router from './src/routes/route'
 
-  loadAssets = async () => {
-    // add any loading assets here
-    this.setState({isLoaded: true});
-  };
+import {
+    SafeAreaView,
+    StyleSheet,
+    ScrollView,
+    View,
+    Text,
+    StatusBar,
+  } from 'react-native';
 
-  renderLoading = () => (
-    <Layout style={[styles.flex]}>
-      <Text>Loading</Text>
-    </Layout>
-  );
-
-  renderApp = () => (
-    <ReduxProvider store={store}>
-      <IconRegistry icons={EvaIconsPack}/>
-      <ApplicationProvider mapping={mapping} theme={crowdboticsTheme}>
-        <NavigatorProvider
-          style={[styles.flex]}
-          ref={nav => {
-            this.navigator = nav;
-          }}>
-          <Layout style={[styles.flex]}>
-            <SplashScreen />
-          </Layout>
-        </NavigatorProvider>
-      </ApplicationProvider>
-    </ReduxProvider>
-  );
-
-  render = () =>
-    this.state.isLoaded ? this.renderApp() : this.renderLoading();
+class App extends Component {
+    state = {}
+    render() {
+        return (
+            <>
+                <StatusBar barStyle="dark-content" />
+                <SafeAreaView>
+                    <NativeRouter>
+                        <View>
+                            <Router />
+                        </View>
+                    </NativeRouter>
+                </SafeAreaView>
+            </>
+        );
+    }
 }
 
-const styles = {flex: {flex: 1}};
+export default App;
+
