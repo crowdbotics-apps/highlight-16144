@@ -25,7 +25,7 @@
     "@react-native-firebase/firestore": "^6.7.1",
     "@react-navigation/native": "^5.2.3",
     "@react-navigation/stack": "^5.2.18",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "base64url": "^3.0.1",
     "buffer": "^5.6.0",
     "gapi-script": "^1.0.2",
